@@ -3,12 +3,11 @@ version: 0.2
 phases:
   install:
     commands:
-      - echo Nothing to install
+      - echo "Installing..."
   build:
     commands:
-      - echo Zipping application files
-      - zip -r app.zip app.py
-
+      - echo "Zipping app.py"
+      - zip app.zip app.py
 artifacts:
   files:
     - app.zip
