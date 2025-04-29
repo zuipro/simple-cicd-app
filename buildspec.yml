@@ -3,12 +3,12 @@ version: 0.2
 phases:
   install:
     commands:
-      - echo Installing dependencies...
-      - pip install -r requirements.txt || true
+      - echo Nothing to install
   build:
     commands:
-      - echo Build completed successfully.
+      - echo Zipping application files
+      - zip -r app.zip app.py
 
 artifacts:
   files:
-    - app.py
+    - app.zip
