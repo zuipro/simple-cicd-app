@@ -13,6 +13,9 @@ phases:
       - echo "Building Docker image..."
       - docker build -t $ImageName .
       - echo "Build completed"
+      - echo "Running security scans..."
+      - pip install safety
+      - safety check 
   post_build:
     commands:
       - echo "Tagging image..."
