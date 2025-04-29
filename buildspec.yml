@@ -1,13 +1,27 @@
 version: 0.2
 
+env:
+  variables:
+    ImageName: "simple-docker-service"
+
 phases:
-  install:
+  pre_build:
     commands:
-      - echo "Installing..."
+      - aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 650251716881.dkr.ecr.ap-south-1.amazonaws.com
   build:
     commands:
-      - echo "Zipping app.py"
-      - zip app.zip app.py
+      - echo "Building Docker image..."
+      - docker build -t $ImageName .
+      - echo "Build completed"
+  post_build:
+    commands:
+      - echo "Tagging image..."
+      - docker tag $ImageName:latest 650251716881.dkr.ecr.ap-south-1.amazonaws.com/$ImageName:latest
+      - echo "Pushing image to ECR..."
+      - docker push 650251716881.dkr.ecr.ap-south-1.amazonaws.com/$ImageName:latest
+
 artifacts:
   files:
-    - app.zip
+    - appspec.yml
+    - taskdef.json
+    - imagedefinitions.json
