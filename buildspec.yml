@@ -22,6 +22,8 @@ phases:
       - docker tag $ImageName:latest 650251716881.dkr.ecr.ap-south-1.amazonaws.com/$ImageName:latest
       - echo "Pushing image to ECR..."
       - docker push 650251716881.dkr.ecr.ap-south-1.amazonaws.com/$ImageName:latest
+      - echo "Creating imagedefinitions.json file..."
+      - echo '[{"name":"simple-docker-service-container","imageUri":"650251716881.dkr.ecr.ap-south-1.amazonaws.com/simple-docker-service:latest"}]' > imagedefinitions.json
 
 artifacts:
   files:
